@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js">
+			
+		</script>
+	</head>
+	<body>
+		<!--
+        	作者：250758092@qq.com
+        	时间：2017-08-22
+        	描述：函数声明和表达式
+        -->
+        <div id="left">
+        	
+        </div>
+        <div id="right">
+        	
+        </div>
+		<script type="text/javascript">
+	//函数声明是被提前执行的。所以一下代码错误
+	if(1)
+	{
+		function a()
+		{
+			console.log('a')
+			
+		}
+		
+	}else
+	{
+		function a()
+		{
+			console.log('b')
+			
+		}
+		
+	}
+	a();
+			
+		</script>
+		
+	</body>
+</html>

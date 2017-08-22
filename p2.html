@@ -8,10 +8,27 @@
 			<!--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
 		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 		<script type="text/javascript" defer="defer">
-					$(function(){
- 
-    alert("p2")
-})
+var test=function(){
+	
+	this.test;
+	
+	
+}
+test.prototype={
+	init:function(){
+		console.log('init');
+		
+	},
+	a:'0'
+	
+}
+
+var a=new test();
+var b=new test();
+a.test='a';
+b.test='b';
+console.log(a.test+b.test);
+
 		</script>
 	</body>
 </html>

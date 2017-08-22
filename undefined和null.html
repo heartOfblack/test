@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var a;
+			//console.log(a);//undefined
+			var b=null;
+			//console.log(b);//null 一般用null都是用于初始化对象变量。
+		
+			console.log(typeof a);//undefined,对于声明但是未定义的变量即是这种类型
+			console.log(typeof b);//object ,null是一个对象类型
+			if(a==b)//但是undefined==null,输出1
+			{
+				console.log(1)
+				
+			}
+		</script>
+	</body>
+</html>
