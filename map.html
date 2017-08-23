@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+		<title>地理编码</title>
+		<link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
+		<!---->
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=xxxxxx&plugin=AMap.Geocoder"></script>
+		<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+
+	</head>
+
+	<body>
+		<div id="container"></div>
+		<select name="search" style="position: relative;z-index: 100;left: 20%;" id='search'>
+			<option value='guangzhou'>广州</option>
+			<option value='shenzhen'>深圳</option>
+		</select>
+		<script type="text/javascript">
+			var test = {
+				'guangzhou': ['广州大学', '暨南大学'],
+				'shenzhen': ['大梅沙', '小梅沙']
+			};
+			var map = new AMap.Map("container", {
+				resizeEnable: true
+			});
+			var marker_list = {}; //存储每个城市的标记点
+			
+
+			var geocoder = new AMap.Geocoder({
+				city: "全国", //城市，默认：“全国”
+				radius: 1000
+			});
+		</script>
+
+		<script type="text/javascript">
+			var person_lng, person_lat, cur_driving;
+			//解析定位结果
+			function onComplete(data) {
+				//将当前个人位置存储起来       
+				person_lng = data.position.getLng();
+				person_lat = data.position.getLat();
+
+			}
+			//解析定位错误信息
+			function onError(data) {
+				//document.getElementById('tip').innerHTML = '定位失败';
+				alert('定位失败');
+			}
+
+			//定位用户当前位置
+			map.plugin('AMap.Geolocation', function() {
+				geolocation = new AMap.Geolocation({
+					enableHighAccuracy: true, //是否使用高精度定位，默认:true
+					timeout: 10000, //超过10秒后停止定位，默认：无穷大
+					buttonOffset: new AMap.Pixel(10, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+					zoomToAccuracy: true, //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+					buttonPosition: 'LB',
+					showMarker: true, //定位成功后在定位到的位置显示点标记，默认：true
+					showCircle: true, //定位成功后用圆圈表示定位精度范围，默认：true
+					convert: true
+				});
+				map.addControl(geolocation);
+				geolocation.getCurrentPosition();
+				/* */
+				AMap.event.addListener(geolocation, 'complete', onComplete); //返回定位信息
+				AMap.event.addListener(geolocation, 'error', onError); //返回定位出错信息
+			});
+
+			/**
+			 * 创建标记
+			 * @param {Object} lng 经度
+			 * @param {Object} lat  纬度
+			 * @param {Object} title 标记内容
+			 * @param {Object} city 该标记所属的城市
+			 */
+
+			function marker(lng, lat, title, city) {
+				console.log(title);
+
+				var marker = new AMap.Marker({
+					position: [lng, lat],
+					title: title,
+					map: map
+				});
+				marker.setLabel({ //label默认蓝框白底左上角显示，样式className为：amap-marker-label
+					offset: new AMap.Pixel(20, 30), //修改label相对于maker的位置
+					content: title
+				});
+
+				//将marker存入对应的城市
+				marker_list[city].push(marker);
+				marker.on('click', function() {
+
+					confirm('是否跳转至高德地图查看前往该网点路径？') && marker.markOnAMAP({
+						name: title,
+						position: marker.getPosition()
+					})
+
+				});
+
+			}
+
+			$('#search').on('change', function() {
+
+				//console.log($(this).val());
+				var cur_city = $(this).val();
+
+				geocoder.setCity(cur_city); //设置城市
+				marker_list[cur_city] = new Array();
+				for(l in test[cur_city]) //循环当前城市所有地点
+				{
+					geocoder.getLocation(test[cur_city][l], function(statu, GeocodeResult) {
+						var g = GeocodeResult;						
+						if(statu == 'complete') { //创建该城市的标记存储数组。				
+
+							for(i in g.geocodes) {
+								marker(g.geocodes[i].location.lng, g.geocodes[i].location.lat, g.geocodes[i].formattedAddress, cur_city);
+								if(i == 0) {
+
+									var lnglat = new AMap.LngLat(g.geocodes[i].location.lng, g.geocodes[i].location.lat);
+									map.setCenter(lnglat);
+									map.setZoom('12'); //设置缩放级别，越小,地图越不详细
+								}
+							}
+							//取消除了将要显示的标记，其他城市的标记全部隐藏
+							marker_list && (function() {
+								for(key in marker_list) {
+
+									key != cur_city && (function() {
+										for(i in marker_list[key]) {
+
+											marker_list[key][i].hide();
+
+										}
+									})()
+
+								}
+							})()
+						} else {
+							console.log('查询地址失败');
+
+						}
+
+					});
+
+				}
+
+			})
+		</script>
+	</body>
+
+</html>

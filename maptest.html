@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>返回经纬度信息</title>
+		<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=0c64f99ed596762bcb311cf2b6495f81&plugin=AMap.Geocoder"></script>
+		
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			test={'begin':'广州天河客运站','end':'广州大学'}
+			var geocoder = new AMap.Geocoder({
+				city: "全国", //城市，默认：“全国”
+				radius: 1000
+			});
+			
+			geocoder.getLocation(test.begin,
+function(status,result){
+	
+	var g=result.geocodes[0];
+	//[{"location":{"O":23.170892,"M":113.342309,"lng":113.342309,"lat":23.170892},
+	//"formattedAddress":"广东省广州市天河区天河客运站","adcode":"440106","level":"兴趣点",
+	//"addressComponent":{"neighborhood":"","neighborhoodType":"","building":"",
+	//"buildingType":"","province":"广东省","city":"广州市","district":"天河区",
+	//"township":"","citycode":"020","street":"","streetNumber":""}}]
+	(status=='complete')&&(console.log(g.location.lng))
+	
+})
+		</script>
+		
+	</body>
+</html>
