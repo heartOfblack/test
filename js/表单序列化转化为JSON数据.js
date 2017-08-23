@@ -7,3 +7,10 @@ function formTojson(data) {
 				}
 				return Json;
 			}
+
+  function formTojson2(data) {  
+               data=data.replace(/&/g,"\",\"");  
+               data=data.replace(/=/g,"\":\"");  
+               data="{\""+data+"\"}";  
+               return data;  
+            }
