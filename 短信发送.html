@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js">
+			
+		</script>
+	</head>
+	<body>
+		<input type="button" name="send" id="send" value="send" />
+		
+		<script type="text/javascript">
+			$('#send').on('click',function(){
+				
+				$.ajax({
+					type:"post",
+					url:"http://113.108.68.228:8001/sendSMS.action",
+					dataType:'json',
+					data:{
+						enterpriseID:'',//企业ID
+						loginName:'',//登录名
+						password:''//密码
+						
+						
+					}
+				});
+				
+				
+				
+				
+			})
+		</script>
+		
+	</body>
+</html>
