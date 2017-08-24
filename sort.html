@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var arr=[12,7,90,5];
+			console.log(arr.sort());//输出12,5,7,90 JAVASCRIPT是根据前面一个数字排序的，我们需要单独为它做一个比较函数
+			console.log(arr.sort(newsort));	//添加newsort后，就可以正确排序，vue框架也是如此
+			function newsort(a,b)
+			{
+				return a-b;
+				
+			}
+			
+		</script>
+	</body>
+</html>
