@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js">
+			
+		</script>
+		<form id="logDialog">
+			<input type="text" name="userName" id="userName" value="" />
+		<button type="submit" id="submit">提交</button>
+		</form>
+		
+		
+		<script>   
+$(function(){
+$("#logDialog #submit").click(function(){
+                        var temp=true;
+                        if($("#logDialog #userName").val()==""){
+                            temp=false;
+                            alert("用户名不能为空!")
+                        }else if($("#logDialog #password").val()==""){
+                            temp=false;
+                            alert("密码不能为空!")
+                        }else if($("#logDialog #safeCode").val()==""){
+                            temp=false;
+                            alert("验证码不能为空!");
+                        }
+ });
+});
+</script>
+	</body>
+</html>

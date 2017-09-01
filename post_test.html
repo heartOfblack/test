@@ -1,0 +1,58 @@
+<!--模拟POST/GET请求-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<select name="type">
+			<option value="post">post</option>
+			<option value="get">get</option>
+			
+		</select>
+		<textarea id='data' name="data" rows="" cols=""></textarea>
+		<br />
+		url:
+		<input type="text" name="url" id="url" value="" />
+		<button onclick="commit()">提交</button>
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js">
+			
+			
+			
+		</script>
+		<script type="text/javascript">
+			function commit()
+			{
+				
+				//console.log(JSON.parse($.trim($('#data').val())));
+				
+				$.ajax({
+					type:$('select').val(),
+					url:$('#url').val(),
+					dataType:'json',
+					data:formTojson($('#data').val()),
+					success:function(data)
+					{
+						
+						console.log(data);
+						
+					}
+				});
+				
+				
+			}
+			
+			function formTojson(data) {
+				var jarr = data.split('&');
+				var Json = {};
+				for(i in jarr) {
+					var cur = jarr[i].split('=');
+					Json[cur[0]] = cur[1];
+				}
+				return Json;
+			}
+		</script>
+		
+	</body>
+</html>
