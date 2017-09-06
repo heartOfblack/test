@@ -1,0 +1,48 @@
+<!--
+	关于JQ 的extend用法
+	
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<div id="body">
+			
+		</div>
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js">
+			
+		</script>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			var a={k:'siyuan'};
+			var b={name:'siwei',age:18};
+			console.log(JSON.stringify($.extend(false,a, b)));
+			$.extend({
+				check:{
+					
+					a:function(){console.log($('#body').attr('id'))}
+					
+				}
+				
+			})
+			$.fn.extend({
+				
+					
+					a:function(){console.log($(this).attr('id'))}
+					
+				
+				
+			})
+			
+			
+			var _check=$.check;
+			_check.a();
+			
+			$('#body').a();
+			
+		</script>
+	</body>
+</html>
