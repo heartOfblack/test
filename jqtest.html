@@ -17,10 +17,15 @@
 	<body>
 		
 		<script type="text/javascript">
-			var a={k:'siyuan'};
-			var b={name:'siwei',age:18};
-			console.log(JSON.stringify($.extend(false,a, b)));
-			$.extend({
+			var a={a:'siyuan',b:{bs:'bs',cs:'cs'}};
+			var b={a:'siwei',b:{bs:'Ts'}};
+			//var b,c;
+			
+			T=$.extend(true,a, b);//第一个参数为true .深拷贝，所有对象属性都会复制，
+			//如果属性相同，后者覆盖前者，第一个对象会被改变，所以如果不希望改变合并对象的结构，最后第一个合并对象以{}代替
+			
+		//	console.log(JSON.stringify($.extend(false,a, b)));
+			/*$.extend({
 				check:{
 					
 					a:function(){console.log($('#body').attr('id'))}
@@ -41,8 +46,27 @@
 			var _check=$.check;
 			_check.a();
 			
-			$('#body').a();
+			$('#body').a();*/
 			
+			
+			//$.a.m();
+		
+		/*	$.extend({
+				a:{
+						m:function(){
+					console.log('m1')
+				}
+					
+				}
+				
+			});
+			$.a={
+				m:function(){
+					console.log('m')
+				}
+				
+			}
+			$.a.m();*/
 		</script>
 	</body>
 </html>
