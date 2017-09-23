@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>标签生成器</title>
+		<style type="text/css">
+
+		</style>
+		<script type="text/javascript" src="wechat_test/js/vue.js">
+		</script>
+		<link rel="stylesheet" type="text/css" href="wechat_test/bootstrap3.3.7/css/bootstrap.css" />
+	</head>
+
+	<body>
+
+		<div id="content" style="width: 40%;float: left;">
+			<h1>单位，点数（8点/mm）全部转换成点数单位比如 宽度 5毫米，数据就是40;<span style="color: red;">其中的参数包括一些变量，请自行替换成变量。</span></h1>
+
+			<div class="well">
+				<span class="badge">1</span><br />
+				<label for="width">设置标签宽度(标签纸最外边，不是内边)</label>
+				<input type="text" name="width" id="width" value="" /><br />
+				<label for="width">设置标签高度(标签纸最外边，不是内边)</label>
+				<input type="text" name="height" id="height" value="" />
+				<input type="button" name="commitPage" id="commitPage" value="确认" class="btn btn-block btn-danger" />
+			</div>
+
+			<div class="well">
+				<span class="badge">2</span><br />
+				<label for="x1">x1</label>
+				<input type="text" name="x1" id="x1" value="" /><br />
+				<label for="y1">y1</label><input type="text" name="y1" id="y1" value="" /><br />
+				<label for="x2">x2</label><input type="text" name="x2" id="x2" value="" /><br />
+				<label for="y2">y2</label><input type="text" name="y2" id="y2" value="" /><br />
+				<label for="LineWidth">线宽1-4</label><input type="text" name="LineWidth" id="LineWidth" value="" /><br />
+
+				<input type="button" name="" id="commitLine" value="确认" class="btn btn-block btn-danger" />
+			</div>
+			
+			<div class="well">
+				字体大小无法控制，请自行调节<br />
+				<span class="badge">3</span><br />
+				<!--"TEXT 0 0 300 16 ".$waybill_number." \n".-->
+				<label for="TextFont">字号,12为中文</label>
+				<input type="text" name="TextFont" id="TextFont" value="" /><br />
+				<label for="TextX">x</label>
+				<input type="text" name="TextX" id="TextX" value="" /><br />
+				<label for="TextY">y</label>
+				<input type="text" name="TextY" id="TextY" value="" /><br />
+				<label for="TextContent">内容</label>
+				<input type="text" name="TextContent" id="TextContent" value="" /><br />
+					<input type="button" name="" id="commitText" value="确认" class="btn btn-block btn-danger" />
+			
+			</div>
+			
+			<div class="well">
+				<span class="badge">4</span><br />
+				条码类型，目前认定为128类型
+				<label for="barcodeWidth">窄条码的宽度点数</label>				
+				<input type="text" name="barcodeWidth" id="barcodeWidth" value="" /><br />
+				<label for="barcodebili">宽条码和窄条码的比率，一般0-4就可以了,0=>1.5:1,1=>2:1,2=>2.5:1.....</label>				
+				<input type="text" name="barcodebili" id="barcodebili" value="" /><br />
+				<label for="barcodeHeight">条码高度</label>				
+				<input type="text" name="barcodeHeight" id="barcodeHeight" value="" /><br />
+				<label for="barcodeX">x</label>				
+				<input type="text" name="barcodeX" id="barcodeX" value="" /><br />
+				<label for="barcodeY">y</label>				
+				<input type="text" name="barcodeY" id="barcodeY" value="" /><br />
+				<label for="barcodeContent">条码内容</label>				
+				<input type="text" name="barcodeContent" id="barcodeContent" value="" /><br />
+				<input type="button" name="" id="commitBarcode" value="确认" class="btn btn-block btn-danger" />
+			
+				<!--BARCODE 128 1 1 50 150 10 HORIZ.-->
+				
+			</div>
+
+		</div>
+		<canvas id="canvas" style="margin-left: 180px;margin-top: 50px;width: 400px;height: 400px;">
+
+			</canvas>
+
+		<textarea name="code" rows="10" id="code" style="width: 50%;float: left;margin-top: 30px;"></textarea>
+		<script type="text/javascript" src="wechat_test/js/jquery-3.1.1.min.js">
+		</script>
+		<script type="text/javascript">
+			var drawBQ = {
+	glo: {},
+	//放全局变量
+	code: '',
+	//存储当前指令
+	ctx: new Object(),
+	init: function() {
+		var dra = this;
+		//初始化画布
+		var canvas = document.getElementById('canvas');
+		dra.ctx = canvas.getContext('2d');
+		$('#commitPage').on('click', function() {
+			dra.setPage();
+
+		});
+
+		$('#commitLine').on('click', function() {
+			dra.setLine();
+		});
+		$('#commitText').on('click', function() {
+
+			dra.setText();
+
+		});
+		$('#commitBarcode').on('click', function() {
+
+			dra.setBarcode();
+
+
+		})
+
+	},
+	setLine: function() {
+		var dra = this;
+		var glo = dra.glo;
+		$('#x1,#y1,#x2,#y2,#LineWidth').each(function(i) {
+			var t = $(this);
+			dra.glo[$(t).attr('id')] = $(t).val(); //存储LINE的4个变量
+
+		});
+		dra.ctx.moveTo(dra.glo.x1, dra.glo.y1);
+		dra.ctx.lineTo(dra.glo.x2, dra.glo.y2);
+		dra.ctx.stroke();
+		//添加指令
+		dra.code += "LINE " + glo.x1 + " " + glo.y1 + " " + glo.x2 + " " + glo.y2 + " " + glo.LineWidth + " " + "\\n";
+		$('#code').val(dra.code);
+
+	},
+	setPage: function() {
+		var dra = this;
+		$('#width,#height').each(function(i) {
+			var t = $(this);
+			dra.glo[$(t).attr('id')] = $(t).val();
+		});
+		$('#canvas').css({
+			'width': dra.glo.width + 'px',
+			'height': dra.glo.height + 'px',
+			'border': 'solid 1px'
+		}); //设置画布长宽
+		//画布的大小和浏览器渲染canvas的宽高属性不一致,是两倍关系
+		$('#canvas').attr('width', dra.glo.width / 2);
+		$('#canvas').attr('height', dra.glo.height / 2);
+
+		//添加指令
+		dra.code = "! 0 200 200 " + dra.glo.height + " 打印数量" + "\\n" + "PAGE-WIDTH " + dra.glo.width + "\\n" + "GAP-SENSE\\n";
+		$('#code').val(dra.code);
+
+	},
+	setText: function() {
+		var dra = this;
+		$('#TextFont,#TextX,#TextY,#TextContent').each(function(i) {
+			var t = $(this);
+			dra.glo[$(t).attr('id')] = $(t).val();
+		});
+		var glo = dra.glo;
+		dra.ctx.font = glo.TextFont + 'px 微软雅黑';
+		dra.ctx.fillText(glo.TextContent, glo.TextX, glo.TextY);
+		//指令
+		dra.code += "TEXT 24 0 " + dra.TextX + " " + dra.TextY + " " + dra.TextContent + "\n";
+		$('#code').val(dra.code);
+	},
+	setBarcode: function() {
+		var dra = this;
+		var glo = dra.glo;
+		$('#barcodeWidth,#barcodebili,#barcodeHeight,#barcodeX,#barcodeY,#barcodeContent').each(function(i) {
+			var t = $(this);
+			dra.glo[$(t).attr('id')] = $(t).val();
+		});
+
+		//barcodeWidth :窄条码 宽度 点数 ,因为不知道条码的一些内容长度和 条码的比例，所以大概展示一下
+
+		dra.ctx.fillRect(glo.barcodeX, glo.barcodeY, parseInt(glo.barcodeX) + 80, parseInt(glo.barcodeY) + parseInt(glo.barcodeHeight));
+
+		dra.code += "BARCODE 128 1 5 " + glo.barcodeHeight + " " + glo.barcodeX + " " + glo.barcodeY + " " + "条码内容" + "\\n"; //标签号是运单号+标签==》8+4，预留，三个0需要进位,否则从0开始
+		$('#code').val(dra.code);
+	}
+
+}
+
+drawBQ.init();
+		</script>
+	</body>
+
+</html>

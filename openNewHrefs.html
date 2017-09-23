@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js">
+			
+		</script>
+	</head>
+	<body>
+		<a href="">a</a>
+		<a href="http://www.baidu.com"></a>
+		<a href="http://www.baidu.com"></a>
+		<script type="text/javascript">
+	$.each($('a'),function()
+       {
+if($(this).attr('href')!='')
+{window.open($(this).attr('href'))}
+
+}
+)
+		</script>
+	</body>
+</html>

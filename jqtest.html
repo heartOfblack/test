@@ -15,58 +15,27 @@
 		</script>
 	</head>
 	<body>
-		
+		<input type="button" name="a" id="a"  value="asdfsadf" />
+		<input type="button" name="" id="" value="y" onclick="t.y()" />
+		<input type="button" name="" id="" value="n" onclick="t.n()" />
 		<script type="text/javascript">
-			var a={a:'siyuan',b:{bs:'bs',cs:'cs'}};
-			var b={a:'siwei',b:{bs:'Ts'}};
-			//var b,c;
+	
+	t={
+		y:function(){
 			
-			T=$.extend(true,a, b);//第一个参数为true .深拷贝，所有对象属性都会复制，
-			//如果属性相同，后者覆盖前者，第一个对象会被改变，所以如果不希望改变合并对象的结构，最后第一个合并对象以{}代替
+			$('#a').prop('disabled',true);
 			
-		//	console.log(JSON.stringify($.extend(false,a, b)));
-			/*$.extend({
-				check:{
-					
-					a:function(){console.log($('#body').attr('id'))}
-					
-				}
-				
-			})
-			$.fn.extend({
-				
-					
-					a:function(){console.log($(this).attr('id'))}
-					
-				
-				
-			})
+		},
+		n:function(){
 			
+			$('#a').prop('disabled',false);
 			
-			var _check=$.check;
-			_check.a();
-			
-			$('#body').a();*/
-			
-			
-			//$.a.m();
+		}
 		
-		/*	$.extend({
-				a:{
-						m:function(){
-					console.log('m1')
-				}
-					
-				}
-				
-			});
-			$.a={
-				m:function(){
-					console.log('m')
-				}
-				
-			}
-			$.a.m();*/
+		
+	}
+	
+	
 		</script>
 	</body>
 </html>
