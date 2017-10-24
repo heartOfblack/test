@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var arr=[1];
+			Object.defineProperty(arr,'0',{
+				set:function(newValue,old){
+					console.log('set'+newValue);
+					
+				},
+				get:function(val){
+					console.log('get');
+					return val;
+				}
+				
+				
+			})
+		</script>
+		
+	</body>
+</html>
