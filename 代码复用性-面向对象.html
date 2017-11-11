@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/tool.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		/*
+		 假设以面向对象的方式来处理，应该如何更好的复用 ？
+		 目前个人的代码复用性不够高，只针对于某个功能写代码，如果两个功能相似，即使在页面中不做复用，也应该把js代码给抽出来
+		  一般事件的触发都与DOM操作有关，这个可能就谈不上什么复用性了。但是对于功能和数据操作相联系的代码能否抽取出来？
+		  
+		 一般JS代码会分为几个部分：
+		 1】全局变量
+		 2】事件触发
+		 3】DOM操作
+		 4】对数据操作
+		 		--单纯的数据操作，跟功能关系不大，比如获取当前如期，把数据转换成XX各式【这个可以抽取为工具类】
+		 		--跟功能相挂钩的数据操作，比如某个功能需要对N个数组进行操作，并返回处理后的数据，然后才是对DOM的操作【这个可以抽取为功能类】
+		 
+		 
+		 现在假设有两个查询功能，先不将其V写在同一个文件做复用的情况下，把查询功能抽取出来。题目如下
+		
+		通过按钮【事件触发】查询某字符串是否在数组【功能类数据操作】中，并显示当前时间【工具类代码】并添加到文本中【DOM操作】
+		
+		文件包括：P1.html  P2.html tool.js【工具】 check.js【功能数据】
+		
+		 * */
+		
+		//var tools=new tools();
+	
+		
+		</script>
+	</body>
+
+</html>

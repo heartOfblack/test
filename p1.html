@@ -1,14 +1,37 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
 	</head>
+
 	<body>
-		
+		<input type="text" name="" id="" value="" />
+		<input type="button" name="" id="" value="查询" />
+		<p></p>
 		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-		<script type="text/javascript" >
-console.log(true||1);
+		<script src="js/check.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/tool.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				var tools = new toolClass();//因为类名和变量名一致会照成冲突，所以最好类名加上Class
+				var checks = new checkClass();
+
+				$('input[type=button]').on('click', function() {
+
+					if(checks.check($('input[type=text]').val(),['a','b']) > 0) {
+						$('p').text('YES'+tools.getDate());
+
+					} else {
+						$('p').text('NO'+tools.getDate());
+
+					}
+
+				});
+
+			});
 		</script>
 	</body>
+
 </html>
