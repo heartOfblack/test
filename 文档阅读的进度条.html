@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			.div{
+				
+				width: 100%;
+				height: 300px;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<!--<script src="bundle.js" type="text/javascript" charset="utf-8"></script>-->
+		<div id="light" style="background: blue;width: 0;height: 5px;position: fixed;">
+			
+		</div>
+		<ul>
+			<li><div class="div">1</div></li>
+			<li><div class="div">1</div></li>
+			<li><div class="div">1</div></li>
+			<li><div class="div">1</div></li>
+			<li><div class="div">1</div></li>
+			<li><div class="div">1</div></li>
+			<li><div class="div">1</div></li>
+			<li><div class="div">1</div></li>
+			<li><div class="div">1</div></li>
+			<li><div class="div">1</div></li>
+		</ul>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			
+			/*console.log($(document).height());
+			console.log($(window).scrollTop());
+			console.log($(window).height());*/
+			//可视窗口位置+滚动条最下面的位置=文档高度
+			
+			$(window).scroll(function(){
+				
+				var percent=$(window).scrollTop()/($(document).height()-$(window).height())*100;
+				$('#light').animate({width:percent+"%"},50);
+				
+			});
+			
+			
+			
+			
+			
+			
+		</script>
+	</body>
+</html>
