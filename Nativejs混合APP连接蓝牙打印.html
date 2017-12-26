@@ -1,0 +1,131 @@
+<html>
+
+	<head>
+		<title></title>
+		<meta charset="UTF-8" />
+	</head>
+
+	<body>
+		<input type="button" name="open" id="open" value="连接" onclick="print()" />
+		<input type="button" name="change" id="change" value="更改蓝牙设备"/>
+		<input type="button" name="print" id="print" value="print" />
+
+		<div id="bluetooth_list" style="width: 100px;height: 100px;">
+			<ul>
+
+			</ul>
+		</div>
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">		
+			function BuleTooth() {
+				var BluetoothAdapter, UUID, uuid, BAdapter, device, bluetoothSocket, list, iterator, blueAddress;
+				
+				/**
+				 *检测当前的连接状态 
+				 */
+				this.init = function() {
+					BluetoothAdapter = plus.android.importClass("android.bluetooth.BluetoothAdapter");
+					UUID = plus.android.importClass("java.util.UUID");
+					uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+					BAdapter = BluetoothAdapter.getDefaultAdapter();
+					lists = BAdapter.getBondedDevices();
+					plus.android.importClass(lists);
+					iterator = lists.iterator();
+					plus.android.importClass(iterator);
+				};
+				/**
+				 * 打开蓝牙
+				 */
+				this.checkOpen = function() {
+					if(!BAdapter.isEnabled()) {
+						//如果没有打开蓝牙，则打开
+						BAdapter.enable();
+
+					}
+
+				}
+
+				/**
+				 * 选择已经匹配的蓝牙
+				 */
+				this.chooseBle = function() {
+					var self = this;
+					while(iterator.hasNext()) {
+						var d = iterator.next();
+						plus.android.importClass(d);
+						var li = '<li style="width:100%;height:20px;background:red;"  data-addr="' + d.getAddress() + '">' + d.getAddress() + '/' + d.getName() + '</li>';
+
+						$('#bluetooth_list ul').append(li); //获取列表名称和 蓝牙地址
+
+					}
+					$('#bluetooth_list ul li').on('click', function() {
+						//alert('点击列表'+$(this).data('addr'));
+						localStorage.setItem('Ble',$(this).data('addr'));
+						self.linkBle($(this).data('addr'));
+
+					})
+
+				}
+
+				this.linkBle = function(blueAddress) {
+					device = BAdapter.getRemoteDevice(blueAddress);
+					plus.android.importClass(device);
+					bluetoothSocket = device.createInsecureRfcommSocketToServiceRecord(uuid);
+					plus.android.importClass(bluetoothSocket);
+				}
+
+				this.print = function(str) {
+					
+					if(!bluetoothSocket.isConnected()) {
+						plus.nativeUI.toast('连接中');
+						bluetoothSocket.connect();
+					}
+
+					if(bluetoothSocket.isConnected()) {
+						console.log('连接成功');
+						var outputStream = bluetoothSocket.getOutputStream();
+						plus.android.importClass(outputStream);
+						var s = plus.android.importClass('java.lang.String');
+						var string = new s(str);
+						var bytes = string.getBytes('gbk');	
+						plus.nativeUI.showWaiting('打印中...');
+						outputStream.write(bytes);
+						outputStream.flush();
+						plus.nativeUI.closeWaiting();
+					} else {
+						plus.nativeUI.alert('打印失败');
+					}
+
+				}
+
+			}
+
+			mui.plusReady(function() {
+
+				var BuleTooths = new BuleTooth();
+				BuleTooths.init();
+
+				
+					BuleTooths.checkOpen();
+					var curBle=localStorage.getItem('Ble');//当前存储的蓝牙设备地址				
+					curBle||BuleTooths.chooseBle();// 如果没有存储任何的设备信息，则选择新的设备
+					console.log(curBle);
+					curBle&&BuleTooths.linkBle(curBle);
+					
+
+
+				$('#print').on('click', function() {
+					
+					BuleTooths.print('哈哈哈\n');
+
+				})
+
+			})
+
+			
+		</script>
+
+	</body>
+
+</html>

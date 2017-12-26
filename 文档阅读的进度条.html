@@ -40,7 +40,7 @@
 			$(window).scroll(function(){
 				
 				var percent=$(window).scrollTop()/($(document).height()-$(window).height())*100;
-				$('#light').animate({width:percent+"%"},50);
+				$('#light').css({width:percent+"%"});
 				
 			});
 			

@@ -1,0 +1,59 @@
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>
+			
+		</title>
+		<style type="text/css">
+			
+			*{
+				
+				margin: 0;
+				padding: 0;
+			}
+			ul li
+			{
+				float: left;
+				width: 20%;
+				height: auto;
+				background: beige;
+				
+				
+			}
+			ul
+			{
+				width: 60%;
+				margin: auto;
+				
+			}
+		</style>
+	</head>
+
+	<body>
+<canvas id="mycanvas" width="500" height="200"></canvas>
+<textarea cols="50" rows="20" id="code"></textarea>
+<button onclick="insert()">提交代码</button>
+
+
+		<script type="text/javascript">
+
+
+		</script>
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js">
+		</script>
+		
+		<script type="text/javascript">
+			function insert(){
+				
+				var code=$('#code').val();
+				eval(code);
+				var canva=$('#mycanvas')[0];
+				
+				
+			}
+		</script>
+		
+	</body>
+
+</html>
