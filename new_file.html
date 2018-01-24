@@ -1,26 +1,22 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
 	</head>
+
 	<body>
-		<!--<iframe src="http://fund.eastmoney.com/001986.html?spm=search" width="300" height="500"></iframe>-->
-	<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/tool.js" type="text/javascript" charset="utf-8"></script>
+		<button onclick="go()">动画</button>
+		<div id="a" style="height: 15px;background: blue;width: 0;">
+
+		</div>
+		<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-	var a={k:1};
-	
-	function get(a,b,c){
-			
-			this.k=8;
-			console.log(a+'/'+b+'/'+c);
-			
-		}
-	get.call(a,1,2,3);
-	console.log(a.k);
-		
+		var t=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test('430181198602256354');
+		console.log(t);
 		</script>
-		
+
 	</body>
+
 </html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#banner
+			{
+				position: relative;
+				width: 602px;
+				height: 200px;
+				border: dashed 1px red;
+				overflow: hidden;
+				
+			}
+			#banner img{
+				position: absolute;
+				
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="banner">
+			
+			<img src="img/2.png"/>
+			<img src="img/3.png"/>
+			<img src="img/4.png"/>
+		</div>
+		<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/tool.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var list=[0,600,1200]
+			$('img').each(function(i){
+				
+				$(this).css({'left':list[i]+'px'});
+				
+				
+			});
+			setInterval(function(){
+				
+			var newarr=$.tools.arrayQueue(list);
+			$('img').each(function(i){
+				
+				$(this).animate({'left':list[i]+'px'});
+				
+				
+			});
+			
+			
+				
+			},3000);
+			
+		
+			
+			
+
+			
+		</script>
+		
+	</body>
+</html>
