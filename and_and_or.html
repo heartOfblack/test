@@ -7,26 +7,31 @@
 	</head>
 
 	<body>
-
-	
+<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			//	var money=
-			var t = {
-				money: 0,
-				init: function() {
-
-					((this.money = prompt('输入你的税前工资'), (/^\d*$/.test(this.money) && this.money != 0)) && (this.money = parseInt(this.money), this.getResult(this.money))) || (alert('请输入数字'), (confirm('重新输入？') && this.init()));
-
-				},
-				getResult: function(m) {
-					var $m = this.money;
-					((m >= 3000 && m <= 5999) && ($m -= (m - 3000) * 0.01)) || ((m >= 6000 && m <= 9000) && ($m -= 3000 * 0.01 + (m - 6000) * 0.02)) || ((m >= 10000) && ($m -= 3000 * 0.01 + 4000 * 0.02 + (m - 10000) * 0.03))
-					document.write('税后工资：' + $m);
-					return $m;
+	
+	getSign({"appid":'1',"timeStamp":'2',"nonceStr":'3',"package":"4","signType":"MD5"});
+	
+	function getSign(signStr)
+			{
+				var str='';
+				for(key in signStr)
+				{
+					if(signStr[key]!="")
+				{
+					 str = str+'&' + key + '=' +signStr[key];
+ 
 				}
-
+					
+				}
+				
+				return str.substr(1);
+				
 			}
-			t.init();
+	
+	console.log($.md5('appId=wxc0fe446543b3d3fe&nonceStr=Gf4bj3Kw9i&package=prepay_id=wx201801251647446ff2efad860464012442&signType=MD5&timeStamp=1516870063&key=e13495514957114c30506faf7dd3f073').toUpperCase());
+	
 		</script>
 
 	</body>
