@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	<div id="qrcode">
+		
+	</div>
+	<script src="qrcodejs/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="qrcodejs/qrcode.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/tool.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//生成一个随机且唯一的参数，就用  5位随机数+1997至今的毫秒数，参数名为sid
+		var str=$.tools.getRandom(5);
+		var d=new Date().getTime();
+		console.log(str+d);
+		//1、创建唯一二维码，并与sid作为一一对应关系，存储到某个地方，这里就以前端内容来模拟后台存储了。开始进入轮训状态
+		//2、移动端扫描二维码，访问链接，验证当前移动端登录账号的账户密码，比对成功后，存储的二维码数据状态更改为“成功”,【此处直接在二维码中嵌套账号密码，而不从手机端提交数据到后台，只作为模拟操作】
+		//3、轮询查询完毕后，显示登录成功
+		var loginJson={sid:str+d,state:false};
+		$.ajax({
+			type:"post",
+			url:"qrcode.php",
+			async:true,
+			dataType:'json',
+			data:{
+				sid:loginJson.sid,
+				state:loginJson.state
+			}
+		});
+		
+		
+		//localStorage.setItem('login',JSON.stringify(loginJson));
+		var qrcode=new QRCode(document.getElementById("qrcode"), "http://www.xxx.cn/qrcodetest/index.php?sid="+str+d+'&user=siyuan&password=123');
+		//qrcode.clear()
+		//开始轮询任务。
+		
+		var checkLogin=setInterval(function(){
+			
+			$.ajax({
+				type:"get",
+				url:"data.xml",
+				async:true,
+				dataType:'xml',
+				success:function(res){
+					/*alert('登录成功');
+					clearInterval(checkLogin);*/
+					var state=$(res).find('state').text();
+					if(state=='true')
+					{
+						alert('扫描成功');
+						clearInterval(checkLogin);
+					}
+					
+				}
+			});
+			
+			
+		},2000);
+		
+	</script>
+	</body>
+</html>
