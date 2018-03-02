@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+*
+{
+	margin: 0;
+	padding: 0;
+}
+#box
+{
+	width: 100px;
+	height: 100px;
+	position: relative;
+	transform-style: preserve-3d;
+	left: 100px;
+	top:100px;
+	perspective: 200px;
+}
+#box:hover
+{
+	
+	  -webkit-animation:loop 8s infinite linear ;
+}
+@-webkit-keyframes loop{
+	from{
+		-webkit-transform: rotateY(0deg)rotateX(0deg);
+	}
+	to{
+		-webkit-transform: rotateY(360deg)rotateX(360deg);
+	}
+}
+img
+{
+
+	width: 100px;
+	height: 100px;
+	position: absolute;
+}
+#left
+{
+	-webkit-transform: rotateY(90deg)translateZ(50px);
+	
+}
+#right
+{
+	-webkit-transform: rotateY(90deg)translateZ(-50px);
+	
+}
+#top
+{
+	-webkit-transform: rotateX(90deg)translateZ(50px);
+	
+}
+#bottom
+{
+	-webkit-transform: rotateX(90deg)translateZ(-50px);
+	
+}
+#before
+{
+	-webkit-transform: translateZ(50px);
+	
+}
+#after
+{
+	-webkit-transform: translateZ(-50px);
+	
+}
+        
+    </style>
+</head>
+<body>
+	<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<input type="button" name="go" id="go" value="go" onclick="go()"/>
+	<script type="text/javascript">
+		function go()
+		{
+			$('#box').css('-webkit-animation','loop 8s infinite linear');
+			
+		}
+	</script>
+	<div id="box">
+		<img id="left" src="img/0.jpg"/>
+		<img id="right" src="img/6.jpg"/>
+		<img id="top" src="img/2.jpg"/>
+		<img id="bottom" src="img/6.jpg"/>
+		<img id="before" src="img/4.jpg"/>
+		<img id="after" src="img/5.jpg"/>
+		
+	</div>
+	
+</body>
+</html>
